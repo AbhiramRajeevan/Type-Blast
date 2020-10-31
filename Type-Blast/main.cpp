@@ -2,11 +2,9 @@
 #include <ctime>
 #include <string>
 
-
 using namespace std;
 
 void num_attr(string sentence,string user,int *arr);
-
 
 int main()
 {
