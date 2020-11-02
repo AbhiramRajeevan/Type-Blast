@@ -1,10 +1,12 @@
 #include <iostream>
 #include <ctime>
 #include <string>
+#include <iomanip>
 
 using namespace std;
 
-int high_wpm=0,high_acc,goal=0;
+int high_wpm=0,goal=0,plays=0,total_wpm=0;
+float total_acc=0,high_acc;
 
 void num_attr(string sentence,string user,int *arr);
 
@@ -23,7 +25,7 @@ int main()
     {
         cout<<"1.Test your typing speed with default text\n";
         cout<<"2.Test your typing speed with custom text\n";
-        cout<<"3.Show highscores\n";
+        cout<<"3.Show highscores and average speed\n";
         cout<<"4.Set speed goals\n";
         cout<<"5.End the program\n";
 
@@ -57,11 +59,16 @@ int main()
 
             int wpm = 60000*arr[3]/time_req;
 
-            int acc = 100*arr[2]/arr[0];
+            float acc = (float)100*arr[2]/arr[0];
 
-            cout << "\nWPM      :" << wpm << endl;
+            cout <<"\nWPM      :" << wpm << endl;
 
-            cout << "ACCURACY :" << acc << endl;
+            cout <<"ACCURACY :"<<fixed<<setprecision(2)<<acc<< endl;
+
+            total_wpm+=wpm;
+            total_acc+=acc;
+
+            plays++;
 
             if(wpm>high_wpm)
             {
@@ -109,11 +116,11 @@ int main()
 
             int wpm = 60000*arr[3]/time_req;
 
-            int acc = 100*arr[2]/arr[0];
+            float acc = (float)100*arr[2]/arr[0];
 
-            cout << "\nWPM      :" << wpm << endl;
+            cout <<"\nWPM      :" << wpm << endl;
 
-            cout << "ACCURACY :" << acc << endl;
+            cout <<"ACCURACY :" <<fixed<<setprecision(2)<<acc << endl;
 
             if(wpm>high_wpm)
             {
@@ -139,8 +146,11 @@ int main()
         }
         else if(choice == 3)
         {
-            cout<<"Your highscore is:\n";
-            cout <<high_wpm <<" wpm with "<<high_acc<<" accuracy!\n";
+            int avg_wpm = total_wpm/plays;
+            float avg_acc = (float)total_acc/plays;
+
+            cout<<"Highscore: "<<high_wpm <<" wpm with "<<high_acc<<" accuracy!\n"; 
+            cout <<"Average: "<<avg_wpm <<" wpm with "<<fixed<<setprecision(2)<<avg_acc<<" accuracy\n";
         }
         else if(choice == 4)
         {
